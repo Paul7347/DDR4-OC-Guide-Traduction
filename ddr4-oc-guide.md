@@ -270,30 +270,30 @@ De la même manière, si un timing scale avec la tension, cela signifie que vous
 * It may be safe to daily 1.60V as there are kits on the [B550 Unify-X QVL](https://www.msi.com/Motherboard/support/MEG-B550-UNIFY-X#support-mem-20) rated for 1.60V. B-Die, 8Gb Rev. E, DJR and 16Gb Rev. B *should* be fine at running 1.60V daily, though it's recommended to have active airflow. Higher voltages leads to higher temperatures and high temperatures can themselves lower the threshold for what voltages are considered safe.
   
 ### Classement
-* Below is how most of the common ICs rank in terms of frequency and timings.
+* Ci-dessous la liste des puces les plus courantes classées par capacités de fréquence et de timings
   | Tier | ICs | Description |
   | :-:  | :-: | :--:        |
-  | S | Samsung 8Gb B-Die | Best DDR4 IC for all round performance |
-  | A | Hynix 8Gb DJR, Micron 8Gb Rev. E<sup>1</sup>, Micron 16Gb Rev. B | Top Performing ICs. Known not to clockwall and generally scale with voltage. |
-  | B | Hynix 8Gb CJR, Samsung 4Gb E-Die, Nanya 8Gb B-Die | High end ICs with the ability to run high frequencies with good timings. |
-  | C | Hynix 8Gb JJR, Hynix 16Gb MJR, Hynix 16Gb CJR, Micron 16Gb Rev. E, Samsung 8Gb D-Die | Decent ICs with good performance and decent frequency scaling.|
-  | D | Hynix 8Gb AFR, Micron 8Gb Rev. B, Samsung 8Gb C-Die, Samsung 4Gb D-Die | Low end ICs commonly found in average cheap kits. Most are EOL and no longer relevant. 
-  | F | Hynix 8Gb MFR, Micron 4Gb Rev. A, Samsung 4Gb S-Die, Nanya 8Gb C-Die | Terrible ICs unable to reliably attain even the highest standard of the base JEDEC Specification.|
-  * Partially based off [Buildzoid's older ranking](https://www.reddit.com/r/overclocking/comments/8cjla5/the_best_manufacturerdie_of_ddr_ram_in_order/dxfgd4x/). Some ICs are not included in this list due to age of the post.
+  | S | Samsung 8Gb B-Die | Meilleur IC DDR4 en général |
+  | A | Hynix 8Gb DJR, Micron 8Gb Rev. E<sup>1</sup>, Micron 16Gb Rev. B | Très bons ICs. Connues pour ne pas avoir de limite de fréquences et pour avoir un bon scaling.|
+  | B | Hynix 8Gb CJR, Samsung 4Gb E-Die, Nanya 8Gb B-Die | ICs haut-de-gamme avec possibilité de fonctionner à haute fréquence avec des bons timings.|
+  | C | Hynix 8Gb JJR, Hynix 16Gb MJR, Hynix 16Gb CJR, Micron 16Gb Rev. E, Samsung 8Gb D-Die | ICs décents avec de bonnes performances et scaling correct.|
+  | D | Hynix 8Gb AFR, Micron 8Gb Rev. B, Samsung 8Gb C-Die, Samsung 4Gb D-Die | ICs bad-de-gamme communéments trouvés dans les kits bons-marché. La plupart sont en fin de vie.|
+  | F | Hynix 8Gb MFR, Micron 4Gb Rev. A, Samsung 4Gb S-Die, Nanya 8Gb C-Die | ICs très mauvais, incapable d'attendre même les standarts JEDEC les plus hauts.|
+  * Partiellement basé sur [l'ancien classement de Buildzoid](https://www.reddit.com/r/overclocking/comments/8cjla5/the_best_manufacturerdie_of_ddr_ram_in_order/dxfgd4x/). Certains ICs ne sont pas inclus dans cette liste car le post se fait vieux.
   * <sup>1</sup>Revisions of 8Gb Rev. E mainly differ in the minimum tRCD achievable and how high they can clock without modification of VTT while maintaining stability. Generally, newer revisions of 8Gb Rev. E (C9BKV, C9BLL, etc.) do tighter tRCD and clock higher without modification of VTT.
  
 ### La température et son effet sur la stabilité
-* Generally, the hotter your RAM is the less stability it will have at higher frequencies and/or tighter timings.
+* En général, plus la température de la RAM est élévées, plus elle sera instable à haute fréquences ou avec des timings serrés.
 * The tRFC timings are very dependent on temperatures, as they are related to capacitor leakage which is affected by temperature. Higher temperatures will need higher tRFC values. tRFC2 and tRFC4 are timings that activate when operating temperature of DRAM hits 85°C. Below these temperatures, these timings don't do anything.
-* B-Die is temperature sensitive and its ideal range is ~30-40°C. Some may be able to withstand higher temperatures so YMMV.
+* Les puces B-die sont sensibles à la température, la température idéale d'environ ~30-40°C. Certains sont capables de supporter des températures plus hautes.
 * Rev. E, on the other hand, doesn't seem to be as strongly temperature sensitive, demonstrated by [buildzoid](https://www.youtube.com/watch?v=OeHEtULQg3Q).
-* You might find that you're stable when running a memory test yet crash while gaming. This is because your CPU and/or GPU dump heat in the case, raising the RAM temperatures in the process. Thus, it is a good idea to stress test your GPU while running a memory test to simulate stability while gaming.
+* Vous pouvez vous trouver dans une situation où votre RAM est stable durant le test mais crash pendant que vous jouez. La raison de ceci est que votre CPU et/ou GPU font monter la température en jeu, ce qui augmente également la température de la RAM. C'est pourquoi il peut être une bonne idée de tester la RAM en stressant également la carte graphique pour simuler une utilisation en jeu.
  
-## Controlleur de mémoire intégré (IMC)
+## Contrôleur de mémoire intégré (IMC)
 ### Intel - LGA1151
-* Intel's Skylake IMC is pretty strong, so it shouldn't be the bottleneck when overclocking.  
-  What would you expect from 14+++++?
+* Le contrôleur de mémoire des processeurs Skylake d'Intel est plutôt bon donc il ne devrait pas être votre facteur limitant lors de l'overclocking.
 * The Rocket Lake IMC, aside from the limitations regarding Gear 1 and Gear 2 memory support, has the strongest memory controller of all Intel consumer CPUs, and by a fair margin.
+* Le contrôleur de mémoire des CPUs Rocket Lake (Gen 11), à part les limitations liées aux modes Gear1 et Gear2, est le meilleur contrôleur de tous les processeurs Intel, avec une marge conséquente.
 * There are 2 voltages you need to change if overclocking RAM: system agent (VCCSA) and IO (VCCIO).  
   **DO NOT** leave these on auto, as they can pump dangerous levels of voltage into your IMC, potentially degrading or even killing it. Most of the time you can keep VCCSA and VCCIO the same, but [sometimes too much can harm stability](https://i.imgur.com/Bv8617y.png) (credits: Silent_Scone). I wouldn't recommend going above 1.25V on each.  
   Below are my suggested VCCSA and VCCIO for 2 single rank DIMMs:
