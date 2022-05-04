@@ -38,11 +38,11 @@
 
 # Préparation
 * Assurez-vous que vos barettes de RAM sont dans les emplacements recommandés (Souvent emplacements 2 et 4).
-* Assurez-vous que votre CPU est entèrement stable avant de commencer à overclocker la RAM car un CPU instable peut causer des erreurs sur la mémoire. Lorsque que l'on essaie des fréquences plus élévées, il est possible que cela rende le CPU instable.
+* Assurez-vous également que votre CPU est entèrement stable avant de commencer à overclocker la RAM car un CPU instable peut causer des erreurs sur la mémoire. Lorsque que l'on essaie des fréquences plus élévées, le stress induit sur le CPU peut le rendre instable.
 * Assurez-vous que votre BIOS/UEFI est à la dernière version.
 
 ## Utilitaires de test de mémoire
-Vous devez toujours tester avec plusieurs tests variés pour être sûr que votre overclock est stable.
+Il est très important de toujours tester avec plusieurs tests variés pour être sûr que votre overclock est stable.
 ### A éviter
 * Je ne recommande pas l'utilisation du test de mémoire AIDA64 ainsi que [Memtest64](https://forums.anandtech.com/threads/techpowerups-memtest-64-is-it-better-than-hci-memtest-for-determining-stability.2532209/) car tous deux ne sont pas très bons pour trouver les erreurs.
 ### Recommandés
@@ -83,10 +83,10 @@ Vous devez toujours tester avec plusieurs tests variés pour être sûr que votr
     4. Créer un nouveau raccourci vers `prime95.exe` et dans le champ cible, ajouter `-t -W<nom_du_dossier>`.
        Votre champ cible devrait alors ressembler à ça: `"chemin\vers\prime95\prime95.exe" -t -WRAM`
     5. Vous pouvez maintenant utiliser le raccourci pour instantanément lancer Prime95 avec les paramètres définits.
-* [randomx-stress](https://github.com/00-matt/randomx-stress/releases) - Peut être utilisé pour tester la stabilité du FCLK.
+* [randomx-stress](https://github.com/00-matt/randomx-stress/releases) - Peut être utilisé pour tester la stabilité du FCLK pour les processeurs AMD.
 ### Comparaison
 [Comparaison](https://imgur.com/a/jhrFGhg) entre Karhu RAMTest, TM avec la configuration Extreme et GSAT.
-  * TM5 est le plus rapide et le plus intensif par une assez grande marge, même j'ai vu des cas où je pouvais passer 30 minutes de TM5 et avoir une erreur au bout de 10 minutes dans Karhu. Un autre utilisateur a eu la même expérience. Votre expérience peut varier.
+  * TM5 est le plus rapide et le plus intensif par une assez grande marge, Dans certains cas je pouvais passer 30 minutes de TM5 et avoir une erreur au bout de 10 minutes dans Karhu. Un autre utilisateur a eu la même expérience. Votre propre expérience peut varier. L'achat de Karhu n'est pas recommandé si vous ne comptez pas overclocker régulièrement
     
 ## Logiciel pour voir les timings
 * Pour consulter les timings dans Windows:
@@ -98,21 +98,21 @@ Vous devez toujours tester avec plusieurs tests variés pour être sûr que votr
     * [ZenTimings](https://zentimings.protonrom.com/).
 
 ## Benchmarks
-* [AIDA64](https://www.aida64.com/downloads) - période d'essai de 30 jours gratuite.Nous utiliserons le test Performance caches et mémoire (situé sous Outils) pour voir comment performe notre RAM. Vous pouvez faire un clic droit sur Start Benchmark puis cliquer sur Start Memory Tests Only pour ignorer les tests de cache.
+* [AIDA64](https://www.aida64.com/downloads) - période d'essai de 30 jours gratuite.Nous utiliserons le test Performance caches et mémoire (situé sous Outils) pour voir comment performe notre RAM. Vous pouvez faire un clic droit sur Start Benchmark puis cliquer sur Start Memory Tests Only pour ignorer les tests de cache. Attention, ce test est connu pour avoir de grosses variations dans les résultats.
 * [Intel Memory Latency Checker](https://software.intel.com/content/www/us/en/develop/articles/intelr-memory-latency-checker.html) - contient tout un tas de tests utiles pour mesurer les performances de la RAM. Il donne des informations plus détaillées que AIDA64 et la valeur de bande passante fluctue moins entre les tests. Notez qu'il faut lancer le logiciel en tant qu'administrateur pour désactiver le prefecthing. Sur les systèmes avec un processeur AMD, il se peut que le prefetching soit à désactiver dans le BIOS.
-* [Intel MLC GUI](https://github.com/FarisR99/IMLCGui) - Interface graphique pour "Intel Memory Latency Checker" crée par Faris.
+* [Intel MLC GUI](https://github.com/FarisR99/IMLCGui) - Interface graphique pour "Intel Memory Latency Checker" crée par Faris. Cela évite de passer par l'invite de commandes pour ceux que ça repousserait.
 * [xmrig](https://github.com/xmrig/xmrig) est très sensible à la mémoire ce qui le rends très utile pour tester l'effet de timings spécifiques. A lancer en tant qu'administrateur via l'invite de commande avec l'argument `--bench=1M`. Utiliser le temps d'exécution pour comparer.
 * [MaxxMEM2](https://www.softpedia.com/get/System/Benchmarks/MaxxMEM2.shtml) - alternative gratuite à AIDA64 mais les tests de bande passante donnent des valeurs beaucoup plus basses qu'AIDA64 donc il ne faut pas comparer les valeurs entre les deux logiciels.
-* [Super Pi Mod v1.5 XS](https://www.techpowerup.com/download/super-pi/) - un autre benchmark sensible à la RAM, mais je ne l'ai pas utilisé autant que AIDA64. 1M - 8M devrait être suffisant pour un test rapide. Il faut uniquement regarder le dernier temps (total), où un score plus bas est meilleur.
+* [Super Pi Mod v1.5 XS](https://www.techpowerup.com/download/super-pi/) - Un autre benchmark sensible à la RAM, mais je ne l'ai pas utilisé autant que AIDA64. 1M - 8M devrait être suffisant pour un test rapide. Il faut uniquement regarder le dernier temps (total), où un score plus bas est meilleur.
 * [HWBOT x265 Benchmark](https://hwbot.org/benchmark/hwbot_x265_benchmark_-_1080p/) - J'ai entendu dire que ce benchmark était également sensible à la RAM mais je ne l'ai jamais vraiment testé moi-même.
 * [PYPrime 2.x](https://github.com/monabuntur/PYPrime-2.x) - Ce benchmark est rapide et apprécie la fréquence processeur/cache/FCLK ainsi que la fréquence et les timings de RAM
 
 # Informations générales sur la RAM
 ## Relation entre fréquence et timing
 * La fréquence de la RAM est mesurée en mégahertz (MHz) ou millions de cycles par seconde. Une fréquence plus élevée signifie plus de cycles par seconde et donc de meilleures performances.
-* Note ésotérique: Les gens considèrent souvent DDR4-3200 comme étant 3200**MHz**, pourtant en réalité le fréquence de la RAM est seulement de 1600MHz. Vu que le transfert de données s'effectue sur le front montant et sur le front descendant de l'horloge en DDR (Double Data Rate), la fréquence réelle de la RAM est égale à la moitié du nombre de transferts réalisés par seconde. En DDR4-3200, la mémoire transfère 3200 millions de bits par seconde, il s'agit donc de 3200**MT/s** (MegaTransfers per second) à une fréquence de 1600**MHz**.
-* Les timings de RAM se mesurent en cycles d'horloge ou ticks. Des timings plus bas signifient moins de cycles requis pour faire une opération, donc de meilleures perfomances.
-  * La seule exception est tREFI, l'intervalle de rafraichissment. Comme son nom l'indique, tREFI corresponds au temps entre chaque rafraichissement. Lors de cette opération, la RAM ne peut rien faire d'autre donc on veut qu'elle le fasse le moins souvent possible. Pour atteindre ce but, on veut que le temps entre les rafraichissements soit maximisé. Cela signifie que l'on va définir tREFI le plus haut possible.
+* Note ésotérique: Les gens pensent souvent que DDR4-3200 signifie 3200**MHz**, pourtant en réalité le fréquence de la RAM est seulement de 1600MHz. Vu que le transfert de données s'effectue sur le front montant et sur le front descendant de l'horloge en DDR (Double Data Rate), la fréquence réelle de la RAM est égale à la moitié du nombre de transferts réalisés par seconde. En DDR4-3200, la mémoire transfère 3200 millions de bits par seconde, il s'agit donc de 3200**MT/s** (MegaTransfers Per Second) ou de 3200**Mbps** (MegaBits Per Second) à une fréquence de 1600**MHz**.
+* Les timings de RAM se mesurent en cycles d'horloge ou ticks. Des timings plus bas signifient moins de cycles requis pour faire une opération, donc de meilleures performances.
+  * La seule exception est le timing tREFI, l'intervalle de rafraichissment. Comme son nom l'indique, tREFI corresponds au temps entre chaque rafraichissement. Lors de cette opération, la RAM ne peut rien faire d'autre donc on veut qu'elle le fasse le moins souvent possible. Pour atteindre ce but, on veut que le temps entre les rafraichissements soit maximisé. Cela signifie que l'on va définir tREFI le plus haut possible.
 * Même si des timings plus bas sont mieux, cela dépends également de la fréquence à laquelle la RAM opère. Par exemple : DDR4-3000 CL15 et DDR4-3200CL16 ont la même latence malgré que DDR4-3000 ait un tCL plus faible. Cela est du au fait que la fréquence plus élevée contre-balance l'augmentation de tCL.
 * Pour calculer le temps réel en nano-secondes (ns) d'un timing donné : `2000 * timing / freq_ddr`.
   * Par exemple, CL15 à DDR4-3000 corresponds à `2000 * 15 / 3000 = 10ns`.
@@ -127,10 +127,10 @@ Vous devez toujours tester avec plusieurs tests variés pour être sûr que votr
     * Il y a une exception : tREFI/tREF qui affecte la latence et la bande passante, par contre il n'est pas modifiable sur AMD.
 
 # Attentes/Limites
-* Cette section aborde les 3 composants pouvant influencer votre expérience d'overclocking : les ICs, la carte mère et l'IMC.
+* Cette section aborde les 3 composants pouvant influencer votre expérience d'overclocking : la carte mère, les ICs et l'IMC.
 
 ## Carte mère
-* Les cartes mères avec seulement 2 slots de RAM seront capables d'atteindre les fréquences les plus élevées.
+* Les cartes mères avec seulement 2 slots de RAM seront généralement capables d'atteindre les fréquences les plus élevées. Surtout vrai sur les cartes mères haut-de-gamme optimisées pour l'overclocking RAM. Les cartes mères petit-budget avec uniquement 2 slots de RAM ne verrons peut-être pas d'amélioration notable mais cela dépend des modèles.
 * Pour les cartes mères à 4 slots, le nombre de barrettes installées influe sur votre fréquence de RAM maximale.
   * Sur les cartes mère utilisant une topologie "daisy-chain" [agencement des traces sur le circuit imprimé](https://www.youtube.com/watch?v=3vQwGGbW1AE), on préférera 2 barrettes. L'utilisation de 4 barrettes impactera grandement votre fréquence RAM maximale.
   * D'un autre côté, les carte mères utilisant une topologie en T overclockeront mieux avec 4 barrettes. N'utiliser que 2 barrettes n'impactera pas autant la fréquence maximale que 4 sticks sur une carte mère daisy-chain (?).
@@ -139,15 +139,15 @@ Vous devez toujours tester avec plusieurs tests variés pour être sûr que votr
 * Les cartes mères d'entrée de gamme ont souvent plus de mal en overclock, possiblement à cause de la qualité du circuit imprimé et du nombre de couches (?).
   
 ## Circuits intégrés (ICs)
-* Connaitre quel ICs (également appelés "dies", prononcé en anglais) sont sur vos barrettes vous donnera une idée des performances attendues. En revanche, même sans disposer de cette information, il est toujours possible d'overclocker votre RAM.
+* Connaitre quel ICs (*Integrated Circuits* également appelés "dies", prononcé en anglais) sont sur vos barrettes vous donnera une idée des performances attendues. En revanche, même sans disposer de cette information, il est toujours possible d'overclocker votre RAM. Les ICs sont les modules de mémoires qui sont soudés sur le PCB de la barette.
 
 ### Rapport Taiphoon burner
-* Note: Taiphoon burner est connu pour essayer de deviner les ICs sans en être sûr, il n'est donc pas conseillé de lui faire confiance aveuglément. Il est fortement recommandé de regarder l'étiquette sur la RAM si possible.
+* Note: Taiphoon burner est connu pour essayer de deviner les ICs sans en être sûr, il n'est donc pas conseillé de lui faire confiance aveuglément mais il peut aider à faire une supposition réflechie. Il est fortement recommandé de regarder l'étiquette sur la RAM si possible.
   * Voir [here](https://www.reddit.com/r/overclocking/comments/ig9d76/thaiphoon_burner_cluelessly_guessing_memory_ics/) pour plus d'info.
 * [Single rank 8Gb Hynix CJR](https://i.imgur.com/hbFyKB2.jpg).
 * [Single rank 8Gb Micron Revision E](https://i.imgur.com/3pQjQIG.jpg) (source: Coleh#4297).
   * [SpecTek](https://www.micron.com/support/spectek-support) ICs are lower binned Micron ICs.
-  * Esoteric note: Many people have started calling this Micron E-die or even just E-die. The former is fine, but the latter can cause confusion as letter-die is typically used for Samsung ICs, i.e. 4Gbit Samsung E-die. Samsung is implied when you say E-die, but as people are calling Micron Rev. E E-die, it'd probably be a good idea to prefix the manufacturer.
+  * Note ésotérique : Beaucoup de gens ont commencé à dire Micron E-die voire même juste E-die. Le premier ne pose pas soucis mais dire uniquement E-die peut porter à confusion car l'apellation Lettre-die est généralement utilisée en parlant des ICs Samsung, i.e. 4Gbit Samsung E-die. Samsung est implicite lorsque l'on dit E-die, mais comme certainess personnes appellent les Micron Rev.E *E-die*, c'est sûrement une bonne idée d'indiquer le fabricant.
 * [Dual rank 8Gb Samsung B-die](https://i.imgur.com/Nqn8s76.jpg).
 
 ### Etiquettes sur les barrettes
@@ -200,14 +200,14 @@ You're held up by operations like RAS/RC/RCD (when waiting for a row to open bec
 * As the count of ranks total in a system increases, so does the load on the memory controller. This usually means that more memory ranks will a require higher voltage, especially VCCSA on Intel and SOC voltage on AMD.
 
 ### Evolution en fonction de la tension (Voltage scaling)
-* Le scaling veut simplement dire comment est-ce que la RAM répond à une augmentation de tension. Est-ce qu'elle va pouvoir tenir une fréquence plus élevée ou des timings plus serrés.
+* Le scaling veut simplement dire la réponse de la RAM face à une augmentation de tension. Est-ce qu'elle va pouvoir tenir une fréquence plus élevée ou des timings plus serrés.
 * Sur beaucoup d'ICs, tCL scale avec la tension, ce qui signifie qu'augmenter la tension peut permettre de diminuer tCL. Au contraire, tRCP et/ou tRP ont plutôt tendance à ne pas être influencés par une augmentation de tension, si grande soit-elle.
 De ce que je sais, tCL, tRCD, tRP et possiblement tRFC peuvent (ou non) scale avec la tension.
 De la même manière, si un timing scale avec la tension, cela signifie que vous pouvez augmenter la tension pour utiliser la même valeur sur le timing mais à une fréquence plus élevée.
 ![CL11 Voltage Scaling](https://i.imgur.com/66GrCz3.png)
   * On peut voir que tCL scale de manière presque linéaire jusqu'à DDR4-2533 avec la tension sur de ICs Hynix 8Gb CJR.
   * Avec des ICs Samsung 8Gb B-die, tCL scale avec la tension de manière presque parfaitement linéaire.
-  * tCL sur des ICs Micron Rev. E possède également un comportement similaire.
+  * tCL sur des ICs Micron Rev.E possède également un comportement similaire.
   * Ces données ont été adaptées en un [calculateur](https://www.desmos.com/calculator/psisrpx3oh). Changez les valeurs de *f* et *v* à la fréquence et tension que vous voulez et il vous donnera les fréquences et tensions atteignables pour un tCL donné (en supposant que tCL scale de manière linéaire jusqu'à 1.50V). Par exemple, DDR4-3200 CL à 1.35V devrait être capable de faire ~DDR4-3333 CL14 à 1.40V, ~DDR4-3533 CL14 à 1.45V et DDR4-3733 CL14 à 1.50V.
 
 * Le scaling avec la tension de tRFC sur Samsung 8Gb B-die
@@ -229,7 +229,7 @@ De la même manière, si un timing scale avec la tension, cela signifie que vous
   | Samsung 4Gb E-die  | O   | N    | N   | N    |
   | Samsung 8Gb B-die  | O   | O    | O   | O    |
   | Samsung 8Gb D-die  | O   | N    | N   | N    |
-  * Les timings qui ne scalent pas avec la tension auront généralement besoin d'être augmentés en même temps que vous augmentez la fréquence.
+  * Les timings qui ne scalent pas avec la tension auront généralement besoin d'être augmentés en même temps que vous augmentez la fréquence pour maintenir la stabilité.
   
 ### Fréquence maximale attendue
 * Ci-dessous se trouvent les fréquences maximales attendues pour certains de ICs les plus courants:
@@ -247,28 +247,28 @@ De la même manière, si un timing scale avec la tension, cela signifie que vous
   | Samsung 8Gb B-die | 5000+ |
   | Samsung 8Gb D-die | 4200+ |
   * <sup>1</sup> Les ICs Hynix 8Gb CJR se sont montrés un peu irréguliers dans mes tests. J'ai testé 3 kit de RipJaws V 3600CL19 de 2x8Go. Un des kits n'a jamais réussi à dépasser DDR4-3600, un autre DDR4-3800 mais le dernier a tenu DDR4-4000 avec un tCL=16 et une tension de 1.45V.
-  * Il ne faut pas s'attendre à ce que les ICs moins bien triés sur le volet s'overclockent aussi bien que les ICs minutieusement sélectionnés. Ceci est particulièrement vrai pour les [Samsung B-die](https://www.youtube.com/watch?v=rmrap-Jrfww).
+  * Il ne faut pas s'attendre à ce que les ICs moins bien sélectionnés s'overclockent aussi bien que les ICs minutieusement choisis. Ceci est particulièrement vrai pour les [Samsung B-die](https://www.youtube.com/watch?v=rmrap-Jrfww).
   * Ces valeurs correspondent simplement aux capacités moyenne des ICs, en revanche certains autre facteurs, comme la carte mère ou le CPU, ont un impact considérable qui détermine si oui ou non les-dites valeurs sont atteignables.
   
 ### Tri sur le volet (Binning)
-* Binning is basically grading components based on their performance characteristics.  
-  Manufacturers would separate ICs into different containers/bins depending on their frequency. Hence the term binning.
-* G.Skill is one manufacturer known for extensive binning and categorization. Oftentimes, several different SKUs of G.Skill memory will belong to the same factory bin (i.e. DDR4-3600 16-16-16-36 1.35V bin of B-Die being binned the same as DDR4-3200 14-14-14-34 1.35V B-Die).
-* B-die binned for 2400 15-15-15 is significantly worse than good B-die binned for DDR4-3200 14-14-14 or even DDR4-3000 14-14-14. Don't expect it to have the same voltage scaling characteristics as good B-Die.
-* To figure out which frequency and timings are a better (tighter) bin within the same IC at the same voltage, find out which timing doesn't scale from voltage.  
-  Simply divide the frequency by that timing and the higher value is the tighter bin.
-  * For example, Crucial Ballistix DDR4-3000 15-16-16 and DDR4-3200 16-18-18 both use Micron Rev. E ICs. Simply dividing the frequency by tCL gives us the same value (200), so does that mean they're the same bin?  
-  No.  
-  tRCD doesn't scale with voltage, which means it needs to be increased as you increase frequency.  
-  `3000 / 16 = 187.5` but `3200 / 18 = 177.78`.  
-  As you can see, DDR4-3000 15-16-16 is a tighter bin than DDR4-3200 16-18-18. This means that a kit rated for DDR4-3000 15-16-16 will probably be able to do DDR4-3200 16-18-18 but a kit rated for DDR4-3200 16-18-18 might not be able to do DDR4-3000 15-16-16. The frequency and timings difference is pretty small, so they'll probably overclock very similarly.
+* Le binning signifie le trie des composants en fonction de performances
+  Les fabricants séparent les ICs dans différents bacs (*bins* en anglais) en fonction de leur fréquence. D'où le terme binning
+* G.Skill est un des fabricants bien connu pour faire beaucoup de binning. Souvent, différentes références de mémoire G.Skill vont correspondre au même bin (i.e. DDR4-3600 16-16-16-36 1.35V est le même bin que DDR4-3200 14-14-14-34 1.35V B-Die).
+* Un kit de Samsung B-die bin pour 2400 15-15-15 sera considérablement moins bon qu'un kit bin pour 3200 14-14-14 ou 3000 14-14-14. Il ne faut pas s'attendre à ce qu'il scale de la même manière qu'un bon kit de B-die.
+* Pour trouver quelle fréquence et timings correspondent à un meilleur bin pour des ICs identiques à la même tension, trouvez quel timing ne scale pas avec la tension.
+  Ensuite divisez le fréquence par ce timing, plus la valeur est haute, plus le bin sera bon.
+  * Par exemple, des kits Crucial Ballistix DDR4-3000 15-16-16 et DDR4-3200 16-18-18 utilisent tous des ICs Micron Rev.E. Diviser la fréquence par tCL nous donne la même valeur (200), donc ça veut dire que c'est le même bin ?
+  Non car tCL scale avec la tension.
+  tRCD ne scale pas, ce qui signifie qu'il doit être augmenté lorsque l'on augmente la fréquence.
+  `3000 / 16 = 187.5` mais `3200 / 18 = 177.78`.
+  Comme on peut le voir, DDR4-3000 15-16-16 est un bin plus serré que DDR4-3200 16-18-18. Cela signifie que le kit vendu pour DDR4-3000 15-16-16 sera probablement capable d'atteindre DDR4-3200 16-18-18 mais pas l'inverse. Dans cet exemple, la différence de fréquence et de timings est petite donc les kits s'overclockeront sûrement de manière similaire.
   
 ### Tension maximale recommandée pour une utilisation quotidienne
-* [JEDEC JESD79-4B (p.174)](http://www.softnology.biz/pdf/JESD79-4B.pdf) specifies that the absolute maximum is 1.50V.
+* [JEDEC JESD79-4B (p.174)](http://www.softnology.biz/pdf/JESD79-4B.pdf) spécifie que le maximum absolu est 1.50V.
   > Stresses greater than those listed under “Absolute Maximum Ratings” may cause permanent damage to the device. This is a stress rating only and functional operation of the device at these or any other conditions above those indicated in the operational sections of this specification is not implied. Exposure to absolute maximum rating conditions for extended periods may affect reliability.
-* This value is the official maximum of the DDR4 Spec for which all DDR4 is to be rated for, however numerous ICs are unable to remain safe at such high sustained voltages.[Samsung 8Gb C-die](https://www.hardwareluxx.de/community/f13/samsung-8gbit-ddr4-c-die-k4a8g045wc-overclocking-ergebnisse-im-startbeitrag-1198323.html) is able to degrade with voltages as low as 1.35V under the right thermal and power delivery conditions. Furthermore, there are other ICs, such as Hynix 8Gb DJR or Samsung 8Gb B-Die that have been observed dailying voltages well in excess of 1.55V. Do your research about what voltages are safe on your IC, or stick to 1.35v or similar if this value is not known. Due to random chance and silicon variance, YMMV compared to other people, so be safe.
-* One common limiting factor for the maximum safe voltage on which you can operate is your CPU's architecture. According to [JEDEC](https://www.jedec.org/standards-documents/dictionary/terms/output-stage-drain-power-voltage-vddq), VDDQ, the voltage of data output, is tied to VDD, colloquially referred to as VDIMM or DRAM Voltage. This voltage interacts with the PHY or Physical Layer present on the CPU and may lead to long term degradation of the IMC if set too high. As a result, daily use of VDIMM voltages above 1.60V on Ryzen 3000 and 5000, 1.65V on Intel Consumer Lake-series Processors is not advisable. Err on the side of caution with this, as CPU degradation of the PHY is difficult to measure or notice until the issue becomes serious.
-* It may be safe to daily 1.60V as there are kits on the [B550 Unify-X QVL](https://www.msi.com/Motherboard/support/MEG-B550-UNIFY-X#support-mem-20) rated for 1.60V. B-Die, 8Gb Rev. E, DJR and 16Gb Rev. B *should* be fine at running 1.60V daily, though it's recommended to have active airflow. Higher voltages leads to higher temperatures and high temperatures can themselves lower the threshold for what voltages are considered safe.
+* Cette valeur est officiellement le maximum des spécification pour la DDR4, que toute DDR4 doit suivre. En revanche, de nombreux ICs sont incapable de soutenir une telle tension. [Samsung 8Gb C-die](https://www.hardwareluxx.de/community/f13/samsung-8gbit-ddr4-c-die-k4a8g045wc-overclocking-ergebnisse-im-startbeitrag-1198323.html) peut se dégrader avec des tensions aussi basses que 1.35V dans certaines conditions de température de d'alimentation. D'un autre côté, il existe des ICs comme les 8Gb Hynix DJR ou encore 8Gb Samsung B-die qui ont été observés en utilisation quotienne au dessus de 1.55V. Je vous encourage à faire vos recherches pour déterminer quelles tensions sont sans danger pour vos ICs, ou bien restez à 1.35V ou similaire si cette valeur est inconnue. A cause de variations aléatoires, votre experience peut différer de celle des autres, donc restez prudents.
+* Un facteur commun limitant pour la tension maximale sans danger est l'architecture de votre processeur. D'après l'organisme [JEDEC](https://www.jedec.org/standards-documents/dictionary/terms/output-stage-drain-power-voltage-vddq), VDDQ, la tension de données en sortie, est liée au VDD, également appelé VDIMM ou DRAM Voltage (Tension de la RAM). Cette tension interragit avec le PHY ou Couche Physique présente sur le CPU et peut causer des dérgadations à l'IMC sur long terme si trop élevé. De ce fait, l'utilisation quotidienne d'une tension RAM supérieure à 1.6V sur Ryzen 3000/5000 et 1.65V sur les processeurs Intel Lake-series n'est pas recommandée. Faite bien attention car la dégradation du PHY est difficile à mesurer et on ne s'en rend compte qu'une fois qu'il est trop tard.
+* Il se peut que 1.6V soit sans danger pour une utilisation quotidienne car on trouve dans la [QVL de la B550 Unify-X](https://www.msi.com/Motherboard/support/MEG-B550-UNIFY-X#support-mem-20) des kits conçus pour 1.6V. Les ICs B-die, 8Gb Rev.E, DJR et 16Gb Rev.B *devraient* n'avoir aucun problème avec 1.6V quotidiennement, mais il est recommandé d'avoir un flux d'air approprié sur les barettes. Une tension plus élevée va induire des températures plus hautes et une température plus haute peut diminuer le seul de sûreté de la tension.
   
 ### Classement
 * Ci-dessous la liste des puces les plus courantes classées par capacités de fréquence et de timings
@@ -281,20 +281,20 @@ De la même manière, si un timing scale avec la tension, cela signifie que vous
   | D | Hynix 8Gb AFR, Micron 8Gb Rev. B, Samsung 8Gb C-Die, Samsung 4Gb D-Die | ICs bad-de-gamme communéments trouvés dans les kits bons-marché. La plupart sont en fin de vie.|
   | F | Hynix 8Gb MFR, Micron 4Gb Rev. A, Samsung 4Gb S-Die, Nanya 8Gb C-Die | ICs très mauvais, incapable d'attendre même les standarts JEDEC les plus hauts.|
   * Partiellement basé sur [l'ancien classement de Buildzoid](https://www.reddit.com/r/overclocking/comments/8cjla5/the_best_manufacturerdie_of_ddr_ram_in_order/dxfgd4x/). Certains ICs ne sont pas inclus dans cette liste car le post se fait vieux.
-  * <sup>1</sup>Revisions of 8Gb Rev. E mainly differ in the minimum tRCD achievable and how high they can clock without modification of VTT while maintaining stability. Generally, newer revisions of 8Gb Rev. E (C9BKV, C9BLL, etc.) do tighter tRCD and clock higher without modification of VTT.
+  * <sup>1</sup>Les différentes revision de 8Gb Rev.E se distinguent principalement par leur tRCD minimum et leur fréquence max atteignable sans modification de VTT (Termination Voltage ou Tension des terminaisons) en restant stable. De manière générale, les revisions plus récentes de 8Gb Rev. E (C9BKV, C9BLL, etc.) fonctionneront avec un tRCD plus serré et accepterons des fréquences plus élevées sans toucher au VTT.
  
 ### La température et son effet sur la stabilité
-* En général, plus la température de la RAM est élévées, plus elle sera instable à haute fréquences ou avec des timings serrés.
-* The tRFC timings are very dependent on temperatures, as they are related to capacitor leakage which is affected by temperature. Higher temperatures will need higher tRFC values. tRFC2 and tRFC4 are timings that activate when operating temperature of DRAM hits 85°C. Below these temperatures, these timings don't do anything.
+* En général, plus la température de la RAM est élévée, plus elle sera instable à haute fréquences ou avec des timings serrés.
+* Les timings tRFC sont très dépendants de la temperature car ils sont liés à la fuite de courante des condensateurs qui est affectée par la température. Des températures plus élevées demanderons un tRFC plus élevé. tRFC2 et tRFC4 sont des timings qui s'activent lorsque la RAM dépasse les 85°C, ce qui ne devrait pas arriver en conditions normales. En dessous de cette température, ces timings ne font rien.
 * Les puces B-die sont sensibles à la température, la température idéale d'environ ~30-40°C. Certains sont capables de supporter des températures plus hautes.
-* Rev. E, on the other hand, doesn't seem to be as strongly temperature sensitive, demonstrated by [buildzoid](https://www.youtube.com/watch?v=OeHEtULQg3Q).
+* 8Gb Rev. E d'un autre côté, ne semble pas être aussi sensible à la température comme démontré par [buildzoid](https://www.youtube.com/watch?v=OeHEtULQg3Q).
 * Vous pouvez vous trouver dans une situation où votre RAM est stable durant le test mais crash pendant que vous jouez. La raison de ceci est que votre CPU et/ou GPU font monter la température en jeu, ce qui augmente également la température de la RAM. C'est pourquoi il peut être une bonne idée de tester la RAM en stressant également la carte graphique pour simuler une utilisation en jeu.
  
 ## Contrôleur de mémoire intégré (IMC)
 ### Intel - LGA1151
 * Le contrôleur de mémoire des processeurs Skylake d'Intel est plutôt bon donc il ne devrait pas être votre facteur limitant lors de l'overclocking.
 * The Rocket Lake IMC, aside from the limitations regarding Gear 1 and Gear 2 memory support, has the strongest memory controller of all Intel consumer CPUs, and by a fair margin.
-* Le contrôleur de mémoire des CPUs Rocket Lake (Gen 11), à part les limitations liées aux modes Gear1 et Gear2, est le meilleur contrôleur de tous les processeurs Intel, avec une marge conséquente.
+* Le contrôleur de mémoire des CPUs Rocket Lake, à part les limitations liées aux modes Gear1 et Gear2, est le meilleur IMC de tous les processeurs Intel et de loin.
 * There are 2 voltages you need to change if overclocking RAM: system agent (VCCSA) and IO (VCCIO).  
   **DO NOT** leave these on auto, as they can pump dangerous levels of voltage into your IMC, potentially degrading or even killing it. Most of the time you can keep VCCSA and VCCIO the same, but [sometimes too much can harm stability](https://i.imgur.com/Bv8617y.png) (credits: Silent_Scone). I wouldn't recommend going above 1.25V on each.  
   Below are my suggested VCCSA and VCCIO for 2 single rank DIMMs:
