@@ -143,10 +143,10 @@ Il est très important de toujours tester avec plusieurs tests variés pour êtr
 
 ### Rapport Taiphoon burner
 * Note: Taiphoon burner est connu pour essayer de deviner les ICs sans en être sûr, il n'est donc pas conseillé de lui faire confiance aveuglément mais il peut aider à faire une supposition réflechie. Il est fortement recommandé de regarder l'étiquette sur la RAM si possible.
-  * Voir [here](https://www.reddit.com/r/overclocking/comments/ig9d76/thaiphoon_burner_cluelessly_guessing_memory_ics/) pour plus d'info.
+  * Voir [ici](https://www.reddit.com/r/overclocking/comments/ig9d76/thaiphoon_burner_cluelessly_guessing_memory_ics/) pour plus d'info.
 * [Single rank 8Gb Hynix CJR](https://i.imgur.com/hbFyKB2.jpg).
 * [Single rank 8Gb Micron Revision E](https://i.imgur.com/3pQjQIG.jpg) (source: Coleh#4297).
-  * [SpecTek](https://www.micron.com/support/spectek-support) ICs are lower binned Micron ICs.
+  * [SpecTek](https://www.micron.com/support/spectek-support) sont juste des ICs Micron avec un moins bon bin.
   * Note ésotérique : Beaucoup de gens ont commencé à dire Micron E-die voire même juste E-die. Le premier ne pose pas soucis mais dire uniquement E-die peut porter à confusion car l'apellation Lettre-die est généralement utilisée en parlant des ICs Samsung, i.e. 4Gbit Samsung E-die. Samsung est implicite lorsque l'on dit E-die, mais comme certainess personnes appellent les Micron Rev.E *E-die*, c'est sûrement une bonne idée d'indiquer le fabricant.
 * [Dual rank 8Gb Samsung B-die](https://i.imgur.com/Nqn8s76.jpg).
 
