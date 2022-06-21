@@ -1,3 +1,5 @@
+Je ne m'attribue pas le mérite pour ce guide. Il s'agit d'une simple traduction de l'excellent guide situé [ici](https://github.com/integralfx/MemTestHelper/blob/oc-guide/DDR4%20OC%20Guide.md)
+
 # Table des matières
 1. [Préparation](#setup)
    1. [Utilitaires de test de mémoire](#memory-testing-software)
@@ -5,7 +7,7 @@
       2. [Recommandés](#recommended)
       3. [Alternatives](#alternatives)
       4. [Comparaison](#comparison)
-   2. [Logiciel pour voir les timings](#timings-software)
+   2. [Utilitaires d'affichage des timings](#timings-software)
    3. [Benchmarks](#benchmarks)
 2. [Informations générales sur la RAM](#general-ram-info)
    1. [Relation entre fréquence et timings](#frequency-and-timings-relation)
@@ -22,7 +24,7 @@
       7. [Tension maximale recommandée pour une utilisation quotidienne](#maximum-recommended-daily-voltage)
       8. [Classement](#ranking)
       9. [La température et son effet sur la stabilité](#temperatures-and-its-effect-on-stability)
-   3. [Controlleur de mémoire intégré (IMC)](#integrated-memory-controller-imc)
+   3. [Contrôleur de mémoire intégré (IMC)](#integrated-memory-controller-imc)
       1. [Intel - LGA1151](#intel---lga1151)
       2. [AMD - AM4](#amd---am4)
 4. [Overclocking](#overclocking)
@@ -293,128 +295,128 @@ De la même manière, si un timing scale avec la tension, cela signifie que vous
 ## Contrôleur de mémoire intégré (IMC)
 ### Intel - LGA1151
 * Le contrôleur de mémoire des processeurs Skylake d'Intel est plutôt bon donc il ne devrait pas être votre facteur limitant lors de l'overclocking.
-* The Rocket Lake IMC, aside from the limitations regarding Gear 1 and Gear 2 memory support, has the strongest memory controller of all Intel consumer CPUs, and by a fair margin.
 * Le contrôleur de mémoire des CPUs Rocket Lake, à part les limitations liées aux modes Gear1 et Gear2, est le meilleur IMC de tous les processeurs Intel et de loin.
-* There are 2 voltages you need to change if overclocking RAM: system agent (VCCSA) and IO (VCCIO).  
-  **DO NOT** leave these on auto, as they can pump dangerous levels of voltage into your IMC, potentially degrading or even killing it. Most of the time you can keep VCCSA and VCCIO the same, but [sometimes too much can harm stability](https://i.imgur.com/Bv8617y.png) (credits: Silent_Scone). I wouldn't recommend going above 1.25V on each.  
-  Below are my suggested VCCSA and VCCIO for 2 single rank DIMMs:
+* Il y a deux tensions que vous devez ajuster si vous souhaitez overclocker votre RAM : le system agent (VCCSA) et l'I/O (VCCIO).
+  **NE PAS** les laisser en auto, car ils peuvent envoyer des tensions trop hautes à votre contrôleur de mémoire et potentiellement le degrader voir le détruire. La plupart du temps, VCCSA et VCCIO peuvent prendre la même valeur, mais [parfois une tension trop haute peut détériorer la stabilité](https://i.imgur.com/Bv8617y.png) (credits: Silent_Scone). Je ne recommande pas de dépasser 1.25V sur ces deux tensions.
+  Ci-dessous mes tensions recommandées pour VCCSA et VCCIO avec 2 barrettes simple rang:
 
-  | Effective Speed (MT/s) | VCCSA/VCCIO (V) |
+  | Fréquence effective (MT/s) | VCCSA/VCCIO (V) |
   | :-------------: | :-------------: |
   | 3000 - 3600 | 1.10 - 1.15 |
   | 3600 - 4000 | 1.15 - 1.20 |
   | 4000 - 4200 | 1.20 - 1.25 |
   | 4200 - 4400 | 1.25 - 1.30 |
-  * With more DIMMs and/or dual rank DIMMs, you may need higher VCCSA and VCCIO than suggested.
-* tRCD and tRP are linked, meaning if you set tRCD 16 but tRP 17, both will run at the higher timing (17). This limitation is why many ICs don't do as well on Intel and why B-die is a good match for Intel.
-  * On Asrock and EVGA UEFIs, they're combined into tRCDtRP. On ASUS UEFIs, tRP is hidden. On MSI and Gigabyte UEFIs, tRCD and tRP are visible but setting them to different values just sets both of them to the higher value.
-* Expected memory latency range: 40ns - 50ns.
-   * Expected memory latency range for Samsung B-Die: 35ns - 45ns.
-   * Overall, latency varies between generations due to a difference in die size (ringbus). As a result, a 9900K will have slightly lower latency than a 10700K at the same settings since the 10700K has the same die as a 10900K.
-   * Latency is affected by the RTLs and IOLs. Generally speaking, higher quality boards and overclocking oriented boards will be more direct in their routing of the memory traces and will likely have lower RTLs and IOLs. On some motherboards, changing RTLs and IOLs have no effect.
+  * Avec plus de barrettes et/ou des barrettes double rang, vous aurez peut-être besoin d'augmenter VCCSA et VCCIO au dessus des suggestions
+* TRCD et tRP sont liés, ce qui veut dire que si vous mettez tRCD à 16 mais tRP à 17, les deux vont tourner sur le timing le plus lent (17). Cette limitation explique en partie pourquoi beaucoup de puces ne sont pas top sur Intel mais aussi pourquoi les B-die fonctionnent aussi bien.
+  * Dans les BIOS ASRock et EVGA, ils sont combinés en tRCDtRP. Chez ASUS, tRP est caché. Sur MSI et Gigabyte, tRCD et tRP sont visibles mais définir des valeurs différentes leur donnera juste la plus lente.
+* Fourchette de latence mémoire attendue: 40ns - 50ns.
+   * Latence attendue pour de la Samsung B-die : 35ns - 45ns.
+   * La latence varie entre les générations à cause des différences de taille du silicium (en particulier le ringbus). Un 9900K aura une latence légérement plus courte qu'un 10700K avec les mêmes réglages car le 10700K a la même taille de silicium que le 10900K.
+   * La latence est impactée par les RTLs et IOLs. Généralement les cartes mères de meilleure qualitée et orientée overclocking auront des routes mémoires plus directes et donc sûrement des RTLs/IOLs plus faibles. Sur certaines cartes mères, changer les RTLs et IOLs n'aura aucun effet.
   
 ### AMD - AM4
-Some terminology:
-* MCLK: Real memory clock (half of the effective RAM speed). For example, for DDR4-3200 the MCLK is 1600MHz.
-* FCLK: Infinity Fabric clock.
-* UCLK: Unified memory controller clock. Half of MCLK when MCLK and FCLK are not equal (desynchronised, 2:1 mode).
-* On Zen and Zen+, MCLK == FCLK == UCLK. However on Zen2 and Zen3, you can specify FCLK. If MCLK is 1600MHz (DDR4-3200) and you set FCLK to 1600MHz, UCLK will also be 1600MHz unless you set MCLK:UCLK ratio to 2:1 (also known as UCLK DIV mode, etc.). However, if you set FCLK to 1800MHz, UCLK will run at 800MHz (desynchronised).
+Une peu de terminologie:
+* MCLK: Fréquence réelle de la RAM (la moitié de la fréquence effective). Par exemple, en DDR4-3200 le MCLK vaut 1600MHz.
+* FCLK: Fréquence de l'Infinity Fabric.
+* UCLK: Fréquence du contrôleur de mémoire unifié. La moitié du MCLK quand MCLK est différent de FCLK (desynchronisé, mode 2:1).
+* Sur Zen et Zen+, MCLK == FCLK == UCLK. En revanche sur Zen2 et Zen3, il est possible de spécifier le FCLK. Si MCLK vaut 1600MHz (DDR4-3200) et que vous mettez le FCLK à 1600MHz, UCLK vaudra aussi 1600MHz sauf si vous définissez le ratio MCLK:UCLK à 2:1 (également connu comme UCLK DIV mode, etc.). Par contre si vous décidez de passer le FCLK à 1800MHz, UCLK va descendre à 800MHz (desychronisé donc égal à MCLK/2).
 
-* Ryzen 1000 and 2000's IMC can be a bit finnicky when overclocking and can't hit as high frequencies as Intel can. Ryzen 3000 and 5000's IMCs are much better and are more or less on par with Intel's newer Skylake based CPUs ie. 9th gen and 10th gen.
-* SOC voltage is the voltage to the IMC and like with Intel, it's not recommended to leave it on auto. Typical ranges for this value range around 1.00V and 1.10V. Higher values are generally acceptable, and may be necessary in stabilizing higher capacity memory and may aid in attaining FCLK stability.
-* By contrast, when SOC voltage is set too high, memory instability can occur. This negative scaling typically occurs between 1.15V and 1.25V on most Ryzen CPUs.
-  > There are clear differences in how the memory controller behaves on the different CPU specimens. The majority of the CPUs will do DDR4-3466 or higher at 1.050V SoC voltage, however the difference lies in how the different specimens react to the voltage. Some of the specimens seem scale with the increased SoC voltage, while the others simply refuse to scale at all or in some cases even illustrate negative scaling. All of the tested samples illustrated negative scaling (i.e. more errors or failures to train) when higher than 1.150V SoC was used. In all cases the maximum memory frequency was achieved at =< 1.100V SoC voltage.  
+* L'IMC des Ryzen 1000 et 2000 peut se montrer un peu complexe lors de l'overclocking et ne peux pas atteindre des fréquences aussi haute que chez Intel. Les IMCs des Ryzen 3000 et 5000 sont bien meilleurs et atteignent plus ou moins les capacités des Intel basés sur Skylake les plus récents (9ème et 10ème génération).
+* La tension SOC est la tension appliquée au contrôleur de mémoire et comme avec Intel, il n'est pas recommandé de la laisser sur auto. La fourchette de valeurs typiques est environ entre 1.00V et 1.10V. Des valeurs plus hautes sont généralement acceptables et parfois nécessaires pour stabiliser une plus grande quantité de mémoire. Elle peut également aider à stabiliser un FCLK plus haut.
+* Par contre, si la tension SOC est trop élévée, elle peut causer des instabilités de la RAM. Ce scaling négatif se produit typiquement entre 1.15V et 1.25V sur la plupart des CPUs Ryzen.
+  > Il y a des différences notables du comportement de l'IMC entre processeurs. La majorité atteindront DDR4-3466 ou plus à 1.050V de tension SoC, en revanche la différence se trouve dans leur façon de réagir à la tension. Certains spécimens semblent scale avec une augmentation de la tension SoC, tandis que d'autres refusent complètement de scale voir même subissent un scaling négatif. Tous les échantillons testés ont montré un scaling négatif (augmentation du nombre d'erreur ou impossibilité de démarrer) en utilisant plus de 1.15V de tension SOC. Dans tous les cas la fréquence maximale de RAM était atteinte avec 1.10V ou moins.
   [~ The Stilt](https://forums.anandtech.com/threads/ryzen-strictly-technical.2500572/page-72#post-39391302)
-* On Ryzen 3000, there's also CLDO_VDDG (commonly abbreviated to VDDG, not to be confused with CLDO_VDD**P**), which is the voltage to the Infinity Fabric. SOC voltage should be at least 40mV above CLDO_VDDG as CLDO_VDDG is derived from SOC voltage.
-  > Most cLDO voltages are regulated from the two main power rails of the CPU. In case of cLDO_VDDG and cLDO_VDDP, they are regulated from the VDDCR_SoC plane.
-Because of this, there are couple rules. For example, if you set the VDDG to 1.100V, while your actual SoC voltage under load is 1.05V the VDDG will stay roughly at 1.01V max.
-Likewise if you have VDDG set to 1.100V and start increasing the SoC voltage, your VDDG will raise as well. I don't have the exact figure, but you can assume that the minimum drop-out voltage (Vin-Vout) is around 40mV.
-Meaning you ACTUAL SoC voltage has to be at least by this much higher, than the requested VDDG for it to take effect as it is requested.  
-Adjusting the SoC voltage alone, unlike on previous gen. parts doesn't do much if anything at all.
-The default value is fixed 1.100V and AMD recommends keeping it at that level. Increasing the VDDG helps with the fabric overclocking in certain scenarios, but not always.
-1800MHz FCLK should be doable at the default 0.9500V value and for pushing the limits it might be beneficial to increase it to =< 1.05V (1.100 - 1.125V SoC, depending on the load-line).  
+* Sur Ryzen 3000, on trouve également CLDO_VDDG (communément abrégé en VDDG, à ne pas confondre avec CLDO_VDD**P**), qui est la tension de l'Infinity Fabric. La tension SOC devrait être au moins 40mV plus haut que CLDO_VDDG car CLDO_VDDG est dérivée de la tension SOC.
+  > La plupart des tensions CLDO sont régulées par les deux rails principaux du CPU. Dans le cas de CLDO_VDDG et CLDO_VDDP, ils sont dérivés de VDDCR_SOC. En conséquence, il y a plusieurs règles qui s'appliquent. Par exemple, si vous définissez le VDDG à 1.10V alors que la tension SOC en charge est de 1.05V, le VDDG restera aux alentours de 1.01V maximum.
+De la même manière si VDDG est défini à 1.100V et que vous augmentez la tension SOC, le VDDG augmentera. Je n'ai pas de valeur exacte mais vous pouvez partir du principe que la différence de tension est aux alentours de 40mV.
+Ce qui signifie que votre VRAIE tension SOC doit être plus élevée d'au moins cette valeur que le VDDG demandé pour obtenir l'effet escompté.
+Ajuster uniquement la tension SOC, contrairement aux générations précédentes, n'aura que peu d'impact voir pas du tout.
+La valeur par défaut est de 1.100V et AMD recommande de la laisser à ce niveau. Augmenter le VDDG aide à l'overclocking de l'Infinity Fabric dans certains cas, mais pas toujours.
+Une fréquence FCLK de 1800MHz doit être faisable avec la tension par defaut de 0.950V et pour pousser les limites il peut être bénéfique de l'augmenter jusqu'à =< 1.05V (1.100 - 1.125V SoC, en fonction de la load-line).
   [~ The Stilt](https://www.overclock.net/forum/28031966-post35.html)  
-  * On AGESA 1.0.0.4 or newer VDDG is separated into VDDG IOD and VDDG CCD for the I/O die and the chiplets parts, respectively.
+  * Depuis l'AGESA 1.0.0.4 VDDG est séparé en VDDG IOD et VDDG CCD pour la partie I/O et les chiplets, respectivement.
 
-* Below are the expected memory frequency ranges for 2 single rank DIMMs, provided your motherboard and ICs are capable:
+* Ci-dessous les fréquences RAM attendues avec 2 barrettes simple rang, en supposant que votre carte mère et vos puces en sont capables:
 
-  | Ryzen | Expected Effective Speed (MT/s) |
+  | Ryzen | Fréquence maximale attendue (MT/s) |
   | :---: | :----------------------: |
   | 1000 | 3000 - 3600 |
   | 2000 | 3400 - 3800<sup>1</sup> |
   | 3000 | 3600 - 3800 (1:1 MCLK:FCLK) <br/> 3800+ (2:1 MCLK:FCLK) |
-  * With more DIMMs and/or dual rank DIMMs, the expected frequency can be lower.
-  * <sup>1</sup>3600+ is typically achieved on a 1 DIMM per channel (DPC)/2 DIMM slot motherboard and with a very good IMC.
+  * Avec plus de barrettes et/ou double rang, la fréquence attendue peut-être plus faible.
+  * <sup>1</sup>3600+ est typiquement atteint sur des cartes mères avec 1 slot par canal (1DPC = 1 DIMM per channel) et un très bon IMC.
     * See [here](https://docs.google.com/spreadsheets/d/1dsu9K1Nt_7apHBdiy0MWVPcYjf6nOlr9CtkkfN78tSo/edit#gid=1814864213).
-  * <sup>1</sup>DDR4-3400 - DDR4-3533 is what most, if not all, Ryzen 2000 IMCs should be able to hit.
-    > On the tested samples, the distribution of the maximum achievable memory frequency was following:  
-    > DDR4-3400 – 12.5% of the samples   
-    > DDR4-3466 – 25.0% of the samples  
-    > DDR4-3533 – 62.5% of the samples  
+  * <sup>1</sup>DDR4-3400 - DDR4-3533 correspond à ce que la plupart des IMCs de Ryzen 2000 devraient être capables d'atteindre.
+    > Sur les échantillons testés, la distribution des fréquences maximales atteignables était comme ceci:
+    > DDR4-3400 – 12.5% des processeurs
+    > DDR4-3466 – 25.0% des processeurs
+    > DDR4-3533 – 62.5% des processeurs
     [~ The Stilt](https://forums.anandtech.com/threads/ryzen-strictly-technical.2500572/page-72#post-39391302)
-  * 2 CCD Ryzen 3000 CPUs (3900X and 3950X) seem to prefer 4 single rank sticks over 2 dual rank sticks.
-    > For 2 CCD SKUs, 2 DPC SR configuration seems to be the way to go.
-    > Both the 3600 and 3700X did 1800MHz UCLK on 1 DPC DR config, but most likely due to the discrepancy of the two CCDs in 3900X, it barely does 1733MHz on those DIMMs.
-    > Meanwhile with 2 DPC SR config there is no issue in reaching 1866MHz FCLK/UCLK.  
+  * Les Ryzen 3000 avec deux CCDs (3900X et 3950X) semblent préférer 4 barrettes simple rang à 2 barrettes double rang.
+    > Les 3600 et 3700X ont atteint 1800MHz UCLK en 1DPC double rang mais, probablement à cause de la divergence des deux CCDs du 3900X, il peine à tenir 1733MHz avec ces barrettes.
+    > Tandis qu'avec une configuration 2 DPC en simple rang il n'y a pas de problèmes pour atteindre 1866MHz sur FCLK/UCLK.
 [~ The Stilt](https://www.overclock.net/forum/10-amd-cpus/1728758-strictly-technical-matisse-not-really-26.html#post28052342)
-* tRCD is split into tRCDRD (read) and tRCDWR (write). Usually, tRCDWR can go lower than tRCDRD, but I haven't noticed any performance improvements from lowering tRCDWR. It's best to keep them the same.
-* Geardown mode (GDM) is automatically enabled above DDR4-2666, which forces even tCL, even tCWL, even tRTP, even tWR and CR 1T. If you want to run odd tCL, disable GDM. If you're unstable try running CR 2T, but that may negate the performance gain from dropping tCL, and may even be less stable than GDM enabled.
-  * For example, if you try to run DDR4-3000 CL15 with GDM enabled, CL will be rounded up to 16.
-  * In terms of performance: GDM disabled CR 1T > GDM enabled CR 1T > GDM disabled CR 2T.
-* On single CCD Ryzen 3000 CPUs (CPUs below 3900X), write bandwidth is halved.
-  > In memory bandwidth, we see something odd, the write speed of AMD's 3700X, and that's because of the CDD to IOD connection, where the writes are 16B/cycle on the 3700X, but it's double that on the 3900X. AMD said this let them conserve power, which accounts for part of the lower TDP AMD aimed for. AMD says applications rarely do pure writes, but it did hurt the 3700X's performance in one of our benchmarks on the next page.  
+* tRCD est séparé en TRCDRD (lecture/read) et tRCDWR (écriture/write). En temps normal, tRCDWR peut aller plus bas que TRCDRD mais je n'ai pas relevé d'amélioration des performances en le baissant. Il est recommandé de garder les deux à la même valeur.
+* Le Geardown mode (GDM) est automatiquement activé lorsque la fréquence mémoire dépasse DDR4-2666. Ce mode force tCL, tCWL, tRTP et tWR à être des nombres pairs et force également CR à 1T. Si vous voulez utiliser un tCL impair, désactivez le GDM. Si vous êtes instable essayez CR 2T mais cela pourrais réduire la gain de performance venant de la réduction de tCL de 1, et pourrait être moins stable qu'avec le GDM activé.
+  * Par exemple, si vous essayez de faire DDR4-3000 CL15 avec GDM activé, tCL sera arrondi à 16.
+  * En termes de performance: GDM désactivé et CR 1T > GDM activé et CR 1T > GDM désactivé et CR 2T.
+* Sur les Ryzen 3000 avec un seul CCD (Les processeurs en dessous du 3900X), la bande passante en écriture est divisée par deux.
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+> In memory bandwidth, we see something odd, the write speed of AMD's 3700X, and that's because of the CDD to IOD connection, where the writes are 16B/cycle on the 3700X, but it's double that on the 3900X. AMD said this let them conserve power, which accounts for part of the lower TDP AMD aimed for. AMD says applications rarely do pure writes, but it did hurt the 3700X's performance in one of our benchmarks on the next page.
+  > En bande passante mémoire, on observe un drôle de résultat, la vitesse d'écriture du 3700X, à cause de la connexion entre le CCD et l'IOD où les écritures sont faites par 16octets/cycles sur ce processeur
   [~ TweakTown](https://www.tweaktown.com/reviews/9051/amd-ryzen-3900x-3700x-zen2-review/index3.html)
-* Expected memory latency range:
+* Latences mémoire attendues:
 
-  | Ryzen | Latency (ns) |
+  | Ryzen | Latence (ns) |
   | :---: | :----------: |
   | 1000 | 65 - 75 |
   | 2000 | 60 - 70 |
   | 3000 | 65 - 75 (1:1 MCLK:FCLK) <br/> 75+ (2:1 MCLK:FCLK) |
-* On Ryzen 3000 and 5000, high enough FCLK can overcome the penalties from desynchronising MCLK and FCLK, provided that you can lock your UCLK to MCLK.
+* Sur Ryzen 3000 et 5000, un FCLK suffisament haut peut compenser les désavantages de la desynchronisation MCLK/FCLK, en supposant que vous pouvez bloquer votre UCLK au niveau du MCLK.
   
-  ![Chart](https://i.imgur.com/F9HpkO2.png) 
+  ![Graphique](https://i.imgur.com/F9HpkO2.png) 
   * (Credits: [Buildzoid](https://www.youtube.com/watch?v=10pYf9wqFFY))
   
 # Overclocking
-* **Disclaimer**: The silicon lottery will affect your overclocking potential so there may be some deviation from my suggestions.
-* **Warning**: Data corruption is possible when overclocking RAM. It's advised to run `sfc /scannow` every so often to ensure any corrupted system files are fixed.
-* The overclocking process is pretty simple and boils down to 3 steps:
-  * Set very loose (high) timings.
-  * Increase DRAM frequency until unstable.
-  * Tighten (lower) timings.
+* **ATTENTION**: Les variations de chaque composants (silicon lottery) vont affecter votre potientiel d'overclocking. Il peut donc y avoir des déviations par rapport à mes suggestions.
+* **ATTENTION**: La corruption de données est possible lorsque l'on overclock sa RAM. Il est recommandé d'executer `sfc /scannow` de temps en temps pour s'assurer que les eventuelles corruptions soient corrigées.
+* Le processus d'overclocking est relativement simple et peut se décrire en 3 étapes:
+  * Définir des timings très relachés (hauts).
+  * Augmenter la fréquence RAM jusqu'à être instable
+  * Resserrer (réduire) les timings.
 
 ## Trouver un point de départ
-1. On Intel, start off with 1.15V VCCSA and VCCIO.  
-   On AMD, start off with 1.10V SOC.
-   * SOC voltage might be named differently depending on the manufacturer.
-     * Asrock: CPU VDDCR_SOC Voltage. If you can't find that, you can use SOC Overclock VID hidden in the AMD CBS menu.
-       * [VID values](https://www.reddit.com/r/Amd/comments/842ehb/asrock_ab350_pro4_guide_bios_overclocking_raven/).
+1. Sur Intel, commencez avec VCCSA et VCCIO à 1.15V.
+   Sur AMD, commencez avec 1.10V SOC.
+   * La tension SOC peut s'appeler de différentes manières suivant le fabricant.
+     * ASRock: CPU VDDCR_SOC Voltage. Si vous ne le trouvez pas, vous pouvez utiliser SOC Overclock VID qui est caché dans le menu AMD CBS.
+       * [Valeurs VID](https://www.reddit.com/r/Amd/comments/842ehb/asrock_ab350_pro4_guide_bios_overclocking_raven/).
      * Asus: VDDCR SOC.
      * Gigabyte: (Dynamic) Vcore SOC.
-       * Note that dynamic Vcore SOC is an offset voltage. The base voltage can change automatically when increasing DRAM frequency. +0.100V at DDR4-3000 might result in 1.10V actual, but +0.100V at DDR4-3400 might result in 1.20v actual.
+       * Notez que le dynamic Vcore SOC est un décalage de la tension. La tension de base peut changer automatiquement lorsque vous augmentez la fréquence de la RAM. +0.100V à DDR4-3000 peut signifier 1.100V en réalité, mais +0.100V à DDR4-3400 peut donner 1.200V en réalité.
      * MSI: CPU NB/SOC.
-2. Set DRAM voltage to 1.40V. If you're using ICs that roll over above 1.35V, set 1.35V.
-   * "Roll over" means that the IC becomes more unstable as you increase the voltage, sometimes to the point of not even POSTing.
-   * ICs that are known to roll over above 1.35V include but is not limited to: 8Gb Samsung C-die, older Micron/SpecTek ICs (before 8Gb Rev. E).
-3. Set primary timings to 16-20-20-40 (tCL-tRCD-tRP-tRAS) and tCWL to 16.
-   * Most ICs need loose tRCD and/or tRP which is why I recommend 20.
-   * See [this post](https://redd.it/ahs5a2) for more information on these timings.
-4. Increase the DRAM frequency until it doesn't boot into Windows any more. Keep in mind the expectations detailed above.
-   * If you're on Intel, a quick way of knowing if you're unstable is to examine the RTLs and IOLs. Each group of RTLs and IOLs correspond to a channel. Within each group, there are 2 values which correspond to each DIMM.  
+2. Ajustez la tension RAM à 1.40V. Si vous utilisez des ICs qui régressent au dessus de 1.35V, entrez 1.35V.
+   * La régression ("roll over" en anglais) signifie que l'IC perd sa stabilité au dessus d'une certaine tension. Parfois au point d'empêcher le démarrage.
+   * Les ICs connues pour régresser au dessus de 1.35V incluent mais ne sont pas limitées à: 8Gb Samsung C-die, les anciens ICs Micron/SpecTek (Avant 8Gb Rev. E)
+3. Définissez vos timings primaire à 16-20-20-40 (tCL-tRCD-tRP-tRAS) et tCWL à 16.
+   * La plupart des ICs ont besoin d'un tRCD/tRP relaché, c'est pourquoi je recommande 20.
+   * Voir [ce post](https://redd.it/ahs5a2) pour plus d'informations sur ces timings.
+4. Augmentez la fréquence de la RAM jusqu'à ce que vous n'arriviez plus à boot dans Windows. Gardez bien en tête les attentes détaillées au dessus.
+   * Si vous êtes sur Intel, une façon rapide de savoir si vous êtes instable est d'examiner les RTLs et IOLs. Chaque groupe de RTLs/IOLs correspond à un canal. Dans chaque groupe il y a deux valeurs qui correspondent à une barrette chacun.
    [Asrock Timing Configurator](https://i.imgur.com/EQBl2wd.jpg)  
-   As I have my sticks installed in channel A slot 2 and channel B slot 2, I need to look at D1 within each group of RTLs and IOLs.  
-   RTLs should be no more than 2 apart and IOLs should be no more than 1 apart.  
-   In my case, RTLs are 53 and 55 which are exactly 2 apart and IOLs are both 7.
-   Note that having RTLs and IOLs within those ranges doesn't mean you're stable.
-   * If you're on Ryzen 3000 or 5000, make sure that the Infinity Fabric frequency (FCLK) is set to half your effective DRAM frequency.
-5. Run a memory tester of your choice.  
-   * Windows will use ~2000MB so make sure to account for that when entering the amount of RAM to test, if the test has manual input. I have 16GB of RAM and usually test 14000MB.
+   Comme mes barrettes sont installées dans le canal A emplacement 2 et canal B emplacement 2, je dois regarder D1 dans chaque groupe de RTLs/IOLs.
+   Les RTLs ne devraient pas avoir un écart de plus de 2 et les IOLs ne devraient pas avoir un écart de plus de 1.
+   Dans mon cas, les RTLs sont de 53 et 55 donc exactement 2 d'écart et les IOLs sont à 7 de partout. 
+   Notez bien qu'avoir des RTLs/IOLs dans cette fourchette ne signie pas que vous êtes stables. Être en dehors en revanche est un gage d'instabilité.
+   * Si vous êtes sur ryzen 3000 ou 5000, assurez-vous que votre fréquence d'Infinity Fabric (FCLK) soit égale à la moitiée de votre fréquence effective, ou bien égale au MCLK. 
+5. Lancez le test de mémoire de votre choix.
+   * Windows utilise ~2000MB de RAM, prenez le bien en compte lorsque je vous entrez le quantité de RAM à tester, si le test a une entrée manuelle. J'ai 16GB de RAM et je test habituellement 14000MB.
    * Minimum recommended coverage/runtime:
-     * MemTestHelper (HCI MemTest): 200% per thread.
+   * Couverture minimum recommandée/temps d'exécution
+     * MemTestHelper (HCI MemTest): 200% par thread.
      * Karhu RAMTest: 5000%.
-       * In the advanced tab, make sure CPU cache is set to enabled. This will speed up testing by ~20%.
-       * Testing for 6400% coverage and a 1 hour duration has an error cover rate of 99,41% and 98,43%, respectively ([Source - FAQ section](https://www.karhusoftware.com/ramtest/)).
+       * Dans l'onglet Advanced, assurez vous que CPU Cache est activé. Cela accélèrera le test d'environ 20%.
+       * Tester pour une couverture de 6400% et une durée d'une heure doivent trouver 99,41% et 98,43% des erreurs respectivement ([Source - FAQ section](https://www.karhusoftware.com/ramtest/)).
      * TM5 anta777 Extreme: 3 cycles.
        * Runtime varies with density. For 16GB RAM, it usually takes between 1.5-2 hours. If you run 32GB RAM you can set the 12th row of the config (Time (%)) to half and you'll get roughly the same runtime as 16GB.
      * OCCT Memory: 30 minutes each for SSE and AVX.
