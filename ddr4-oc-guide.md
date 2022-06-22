@@ -411,48 +411,49 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
    * Si vous êtes sur ryzen 3000 ou 5000, assurez-vous que votre fréquence d'Infinity Fabric (FCLK) soit égale à la moitiée de votre fréquence effective, ou bien égale au MCLK. 
 5. Lancez le test de mémoire de votre choix.
    * Windows utilise ~2000MB de RAM, prenez le bien en compte lorsque je vous entrez le quantité de RAM à tester, si le test a une entrée manuelle. J'ai 16GB de RAM et je test habituellement 14000MB.
-   * Minimum recommended coverage/runtime:
-   * Couverture minimum recommandée/temps d'exécution
+   * Couverture minimum recommandée/temps d'exécution:
      * MemTestHelper (HCI MemTest): 200% par thread.
      * Karhu RAMTest: 5000%.
        * Dans l'onglet Advanced, assurez vous que CPU Cache est activé. Cela accélèrera le test d'environ 20%.
        * Tester pour une couverture de 6400% et une durée d'une heure doivent trouver 99,41% et 98,43% des erreurs respectivement ([Source - FAQ section](https://www.karhusoftware.com/ramtest/)).
      * TM5 anta777 Extreme: 3 cycles.
-       * Runtime varies with density. For 16GB RAM, it usually takes between 1.5-2 hours. If you run 32GB RAM you can set the 12th row of the config (Time (%)) to half and you'll get roughly the same runtime as 16GB.
-     * OCCT Memory: 30 minutes each for SSE and AVX.
-6. If you crash/freeze/BSOD or get an error, drop the DRAM frequency by a notch and test again.
-7. Save your overclock profile in your UEFI.
-8. From this point on you can either: try to go for a higher frequency or work on tightening the timings.
-   * Keep in mind the expectations detailed above. If you're at the limit of your ICs and/or IMC it's best just to tighten the timings.
+       * La durée du test varie en fonction de la densité. Pour 16GB de RAM, il dure en moyenne 1h30-2h. Si vous avez 32GB de RAM, vous pouvez changer la 12ème colonne du fichier de config (Time (%)) à la moitée et vous obtiendrez un temps similaire à 16GB.
+     * OCCT Memory: 30 minutes de chaque pour SSE et AVX.
+6. Si votre PC plante/bloque/écran bleu, descendez la fréquence RAM d'un palier et réessayez.
+7. Sauvegardez votre profil d'overclock dans le BIOS.
+8. Une fois ici vous avez le choix entre essayer d'atteindre une fréquence plus haute ou travailler sur le resserage des timings.
+   * Gardez bien en tête les attentes détaillées au dessus. Si vous êtes aux limites de votre IMC ou de vos puces, il vaut mieux essayer de travailler les timings.
    
 ## Essayer des fréquences plus hautes
-* This section is applicable if you're not at the limit of your motherboard, ICs and IMC.  
-  This section is not for those who are having trouble stabilising frequencies within the expected range.
-     * Note that some boards have auto rules that can stifle your progress, an example being tCWL = tCL - 1 which can lead to uneven values of tCWL. Reading the [Miscellaneous Tips](#miscellaneous-tips) might give you insight into your particular platform and your motherboards functionality.
+* Cette section est uniquement applicable si vous n'êtes pas aux limites de votre IMC ou de vos ICs.  
+  Cette section n'est pas pour ceux qui ont déjà du mal à stabiliser des fréquences dans les fourchettes atendues.
+     * Notez que certaines cartes mères ont des règles automatiques pouvant brider votre progrès, par exemple tCWL = tCL - 1 peut mener à un tCWL impair. Lire les [Conseils divers](#miscellaneous-tips) pourrait vous donner des astuces pour votre platforme en particulier et les fonctionnalités de votre carte.
 1. Intel:
-   * Increase VCCSA and VCCIO to 1.25V.
-   * Set command rate (CR) to 2T if it isn't already.
-   * Set tCCDL to 8. Asus UEFIs don't expose this timing.
+   * Augmentez le VCCSA et le VCCIO à 1.25V.
+   * Ajustez le CR (Command Rate) à 2T si ce n'est pas déjà le cas.
+   * Ajustez tCCDL à 8. Les BIOS de chez ASUS ne donnent pas accès à ce timing.
    
    Ryzen 3000:
-   * Desynchronising MCLK and FCLK can incur a massive latency penalty, so you're better off tightening timings to keep your MCLK:FCLK 1:1. See [AMD - AM4](#amd---am4) for more information.
-   * Otherwise, set FCLK to whatever is stable (1600MHz if you're unsure).
-2. Loosen primary timings to 18-22-22-42 and set tCWL to 18.
-3. Increase DRAM voltage to 1.45v if it is safe for your IC.
-5. Follow steps 4-7 from [Finding a Baseline](#finding-a-baseline).
-6. Proceed to [Tightening Timings](#tightening-timings).
+   * Desynchronisez le MCLK et FCLK peut engendrer une grosse pénalité de latence, je recommande plutôt de travailler sur vos timings pour garder le ratio MCLK:FCLK en 1:1. Voir [AMD - AM4](#amd---am4) pour plus d'informations.
+   * Autrement, ajustez votre FCLK sur la fréquence qui est stable. (1600MHz si vous n'êtes pas sûrs)
+2. Augmentez les timings primaires à 18-22-22-42 et tCWL à 18.
+3. Augmentez la tension RAM à 1.45V si c'est sans danger pour vos ICs.
+5. Suivez les étapes 4 à 7 de [Trouver un point de départ](#finding-a-baseline).
+6. Continuez vers [Resserer les timings](#tightening-timings).
    
 ## Resserrer les timings
-* Make sure to run a memory test and benchmark after each change to ensure performance is improving.
-  * I would recommend to benchmark 3 to 5 times and average the results, as memory benchmarks can have a bit of variance.
+* Pensez à lancer un test de stabilité et de performance après chaque changement de timing pour vous assurez d'être stable et que les performances ne diminuent pas.
+  * Je recommande de lancer le benchmark 3 à 5 fois et de faire la moyenne des résultats, les résultats des tests de RAM peuvent fluctuer un peu.
   * Theoretical maximum bandwidth (MB/s) = `Transfers per clock * Actual Clock * Channel Count * Bus Width * Bit to Byte ratio`.
-       * Transfers per clock refers to the number of data transfers that can occur in one full memory clock cycle. This occurs twice per cycle on DDR RAM, on the rising and falling clock edges.
-       * Actual Clock is the real clock of the memory, simply measured in MHz. This is generally shown as the real memory frequency by programs such as CPU-Z.
+  * Bande passante maximale théorique (MB/s) = `Transferts par cycle * Fréquence réelle * Nombre de canaux * Largeur du bus * ratio bit / octet`.
+       * Les transferts par cycles correspondent au nombre de transferts de données qui peuvent se produire en un cycle d'horloge complet. Il y en a deux par cycles pour la RAM DDR : sur le front montant et le front descendant de l'horloge.
+       * La fréquence réelle correspond à la fréquence de la ram en MHz. Elle est généralement affichée dans les programmes comme CPU-Z.
        * Channel Count is the number of memory channels active on your CPU.
-       * Bus Width is the width of each memory channel, measured in bits. Since DDR1, this is 64 bits.
-       * Bit to Byte ratio is a constant 1/8, or 0.125
+       * Le nombre de canaux est le nombre de canaux mémoire actifs sur votre processeur, en général deux.
+       * La largeur du bus est la largeur d'un canal mémoire, mesuré en bits. Depuis la DDR1, elle est de 64bits.
+       * Le ratio bit / octet est une constante, 1/8 ou 0.125.
  
-    | Effective Memory Speed (MT/s) | Max Dual Channel Bandwidth (MB/s) |
+    | Vitesse mémoire effective (MT/s) | Bande passante max en double canal (MB/s) |
     | :-------------: | :------------------------: |
     | 3000 | 48000 |
     | 3200 | 51200 |
@@ -463,24 +464,24 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     | 3800 | 60800 |
     | 4000 | 64000 |
     
-    * Your read and write bandwidth should be 90% - 98% of the theoretical maximum bandwidth.
-      * On single CCD Ryzen 3000-5000 CPUs, write bandwidth should be 90% - 98% of half of the theoretical maximum bandwidth.  
-        It is possible to hit half of the theoretical maximum write bandwidth. See [here](https://redd.it/cgc9bh).
-      * Percentage of theoretically max bandwidth is inversely proportional to most memory timings. Generally speaking, as RAM timings are tightened, this value will increase.
+    * Votre bande passante en lecture et en écriture devrait être aux alentours de 90% - 98% du maximum théorique.
+      * Sur les Ryzen 3000-5000 avec un seul CCD, la bande passante en lecture devrait être aux alentours de 90% - 98% de la moitié maximum théorique.
+        Il est possible d'atteindre la moitié de la bande passante maximale théorique. Voir [ici](https://redd.it/cgc9bh).
+      * Le pourcentage de la bande passante maximale théorique est inversement proportionelle à la plupart des timings mémoire. Généralement, quand un timing est resserré, cette valeur devrait augmenter.
 
-1. I would recommend to tighten some of the secondary timings first, as they can speed up memory testing.  
-   My suggestions:
+1. Je vous recommenderai de resserrer certains timings secondaires en premier car ils peuvent diminuer le temps des tests de stabilité.  
+   Mes suggestions:
    
-   | Timing | Safe | Tight | Extreme |
+   | Timing | Safe | Serré | Extreme |
    | ------ | ---- | ----- | ------- |
    | tRRDS tRRDL tFAW | 6, 6, 24 | 4, 6, 16 | 4, 4, 16 |
    | tWR | 16 | 12 | 10 |
-   * The minimum value for which lowering tFAW will have an effect on the performance of RAM is `tRRDS * 4` or `tRRDL * 4`, whichever is lower.
-   * You don't have to run all of the timings at one preset. You might only be able to run tRRDS tRRDL tFAW at the tight preset, but you may be able to run tWR at the extreme preset.
-   * On some Intel motherboards, tWR in the UEFI does nothing and instead needs to be controlled through tWRPRE (sometimes tWRPDEN). Dropping tWRPRE by 1 will drop tWR by 1, following the rule tWR = tWRPRE - tCWL - 4.
+   * La valeur minimale pour laquelle diminuer tFAW aura un effet sur les performances de la RAM est `tRRDS * 4` ou `tRRDL * 4`, celui qui est le plus bas.
+   * Vous n'êtes pas obligé d'utiliser toutes les valeurs d'une suggestion. Il se peut que tRRDS, tRRDL et tFAW fonctionne sur le profil Serré mais que tWR soit stable à la valeur Extreme.
+   * Sur certaines cartes mères Intel, tWR dans le BIOS ne fait rien. Dans ce cas il est controllé par tWRPRE (certaines fois tWRPDEN). Baisser TWRPRE de 1 va baisser tWR de 1, en suivant la règle tWR = tWRPRE - tCWL - 4.
      
-2. Next is tRFC. Default for 8Gb ICs is 350**ns** (note the units).
-   * Note: Tightening tRFC too much can result in system freezes/lock ups.
+2. La valeur par défaut pour les ICs 8Gb est de 350**ns** (attention aux unités)
+   * Note: Trop serrer tRFC peut parfoit causer des blocages/freeze du PC.
    * tRFC is the number of cycles for which the DRAM capacitors are "recharged" or refreshed. Because capacitor charge loss is proportional to temperature, RAM operating at higher temperatures may need substantially higher tRFC values.
    * To convert to ns: `2000 * timing / ddr_freq`.  
    For example, tRFC 250 at DDR4-3200 is `2000 * 250 / 3200 = 156.25ns`.
