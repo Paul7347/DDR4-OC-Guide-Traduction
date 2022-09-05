@@ -482,12 +482,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
      
 2. La valeur par défaut pour les ICs 8Gb est de 350**ns** (attention aux unités)
    * Note: Trop serrer tRFC peut parfoit causer des blocages/freeze du PC.
-   * tRFC is the number of cycles for which the DRAM capacitors are "recharged" or refreshed. Because capacitor charge loss is proportional to temperature, RAM operating at higher temperatures may need substantially higher tRFC values.
-   * To convert to ns: `2000 * timing / ddr_freq`.  
-   For example, tRFC 250 at DDR4-3200 is `2000 * 250 / 3200 = 156.25ns`.
-   * To convert from ns (this is what you would type in your UEFI): `ns * ddr_freq / 2000`.  
-   For example, 180ns at DDR4-3600 is `180 * 3600 / 2000 = 324`, so you would type 324 in your UEFI.
-   * Below are the typical tRFC in ns for the common ICs:
+   * tRFC est le nombre de cycles pendant lesquels les condensateurs de la RAM sont "rechargés" ou rafraichis. Etant donné que la perte de charge des condensateurs est liée à la température, de la RAM plus chaude peut nécessiter une valeur de tRFC plus élévée.
+   * Pour convertir en ns: `2000 * timing / freq_ddr`. 
+   Par exemple pour un tRFC de 250 en DDR4-3200 : `2000 * 250 / 3200 = 156.25ns`.
+   * Pour convertir de ns en nombre de cycles (ce que vous rentrez dans le BIOS): `ns * freq_ddr / 2000`.
+   Par exemple, 180ns en DDR4-3600 donne `180 * 3600 / 2000 = 324`, donc vous entrerez 324 dans le BIOS.
+   * Ci dessous les valeurs typiques de tRFC pour les ICs les plus communs:
    
      | IC | tRFC (ns) |
      | :-: | :-------: |
@@ -499,82 +499,84 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
      | Samsung 8Gb B-Die | 120 - 180 |
      | Samsung 8Gb C-Die | 300 - 340 |
      
-   * For all other ICs, I would recommend doing a binary search to find the lowest stable tRFC.  
-   For example, say your tRFC is 630. The next tRFC you should try is half of that (315). If that is unstable, you know that your lowest tRFC is somewhere between 315 and 630, so you try the midpoint (`(315 + 630) / 2 = 472.5, round down to 472`). If that is stable, you know that your lowest tRFC is between 315 and 472, so you try the midpoint and so on.
-   * [tRFC table by Reous](https://www.hardwareluxx.de/community/threads/hynix-8gbit-ddr4-cjr-c-die-h5an8g8ncjr-djr-2020-update.1206340/)(bottom of page).
-3. Here are my suggestions for the rest of the secondaries:
+   * For all other ICs, I would recommend doing a binary search to find the lowest stable tRFC.
+   * Pour tous les autres ICs, je recommanderais de faire une recherche dichotomique pour trouver votre tRFC minimum stable.
+   Par exemple, disons que votre tRFC est de 630. La valeur suivante à tester serai la moitiée (315). Si c'est instable, vous savez que votre tRFC minimum se trouve entre 315 et 630, il faut maintenant tester entre ces deux valeurs (`(315 + 630) / 2 = 472.5, arrondi à 472`). Si cette valeur s'avère stable, vous savez maintenant que votre tRFC minimum est entre 315 et 472. Vous pouvez donc tester la valeur au milieu et ainsi de suite.
+   * [Tableau de tRFC par Reous](https://www.hardwareluxx.de/community/threads/hynix-8gbit-ddr4-cjr-c-die-h5an8g8ncjr-djr-2020-update.1206340/)(bas de page).
+3. Voici mes suggestions pour le reste des timings secondaires:
 
-   | Timing | Safe | Tight | Extreme |
+   | Timing | Safe | Serré | Extreme |
    | :----: | :--: | :---: | :-----: |
-   | tWTRS tWTRL | 4 12 | 4 10 | 4 8 |
+   | tWTR_S tWTR_L | 4 12 | 4 10 | 4 8 |
    | tRTP | 12 | 10 | 8 |
    | tCWL<sup>1</sup> | tCL | tCL - 1 | tCL - 2 |
-   * On Intel, tWTRS/L should be left on auto and controlled with tWRRD_dg/sg respectively. Dropping tWRRD_dg by 1 will drop tWTRS by 1. Likewise with tWRRD_sg. Once they're as low as you can go, manually set tWTRS/L.
-   * On Intel, changing tCWL will affect tWRRD_dg/sg and thus tWTR_S/L. If you lower tCWL by 1 you need to lower tWRRD_dg/sg by 1 to keep the same tWTR values. Note that this might also affect tWR per the relationship described earlier.
-   * <sup>1</sup>Some motherboards don't play nice with odd tCWL. For example, I'm stable at 4000 15-19-19 tCWL 14, yet tCWL 15 doesn't even POST. Another user has had similar experiences. Some motherboards may seem fine but have issues with it at higher frequencies (Asus). Manually setting tCWL equal to tCL if tCL is even or one below if tCL is uneven should alleviate this (eg. if tCL = 18 try tCWL = 18 or 16, if tCL = 17 try tCWL = 16).
-   * The extreme preset is not the minimum floor in this case. tRTP can go as low as 5 (6 with Gear Down Mode on), while tWTRS/L can go as low as 1/6. Some boards are fine doing tCWL as low as tCL - 6. Keep in mind that this *will* increase the load on your memory controller.
-   * On AMD, tCWL can often be set to tCL - 2 but is known to require higher tWRRD.
+   * Sur Intel, tWTR_S/L doit être laissé sur auto et controllé par tWRRD_DG/SG respectivements. Réduire tWRRD_DG de 1 diminue tWTR_S de 1. Pareil pour tWRRD_SG et tWTR_L. Une fois qu'ils sont aussi bas que possible, vous pouvez définir tWTR_S/L manuellement.
+   * Sur Intel, changer tCWL affecte tWRRD_DG/SG et de ce fait tWTR_S/L également. Si vous diminuez tCWL de 1, il faut également diminuer tWRRD_SG/DG de 1 pour garde les mêmes valeurs de tWTR_S/L. Notez que ceci peut aussi affecter tWR à cause de la relation précédemment décrite.
+   * <sup>1</sup>Certaines cartes mères ont du mal avec un tCWL impair. Par exemple je suis stable à 4000 15-19-19 tCWL 14, cependant tCWL 15 ne POST même pas. Un autre utilisateur à relevé un comportement similaire. Certaines cartes mères semble ne pas être affectées mais ont en réalité des problèmes à plus haute fréquence (Asus). La solution est d'entrer la même valeur que tCL si celui-ci est pair et d'entrer 1 de moins si celui-ci est impair. (ex: si tCL = 18 essayez tCWL = 18 ou 16, si tCL = 17 essayez tCWL = 16).
+   * Le preset extreme n'est ici pas le minimum absolu possible. tRTP peut descendre jusqu'à 5 (6 avec Gear Down Mode activé), et tWTR_S/L peut aller jusqu'à 1/6. Certaines cartes mères acceptent jusqu'à tCWL = tCL - 6 sans problèmes. Gardez bien en tête que ceci augmentera la charge sur votre controlleur de mémoire.
+   * Sur AMD, tCWL peut souvent être égal à tCL - 2 mais requiert d'augmenter tWRRD.
    
-4. Now for the tertiaries:
-    * If you're on AMD, refer to [this post](https://redd.it/ahs5a2).  
-      My suggestion:
+4. Maintenant les timings tertiaires:
+    * Si vous êtes sur AMD, réferez vous à [ce post](https://redd.it/ahs5a2).
+      Mes suggestions:
   
-       | Timing | Safe | Tight | Extreme |
+       | Timing | Safe | Serré | Extreme |
        | ------ | ---- | ----- | ------- |
        | tRDRDSCL tWRWRSCL | 4 4 | 3 3 | 2 2 |
+
+        * Beaucoup d'ICs sont connus pour avoir des problèmes avec des SCLs bas. Les valeurs telles que 2 sont extrement difficiles pour tous les ICs sauf Samsung 8Gb B-die. Ces valeurs ne sont pas nécessairement liées, des valeurs plus hautes telles que 5 sont acceptables. Mélanger des valeurs est possible, tRDRDSCL est souvent celui qui a besoin d'être 1 au dessus voire 2. Des valeurs supérieurs à 5 auront un impact majeur sur la bande passante et ne sont pas recommandées.
      
-        * A lot of ICs are known to have issues with low SCLs. Values such as 2 are extremely difficult for all but ICs such as Samsung 8Gb B-Die. These values are not necessarily linked, and values such as 5 are acceptable. Mixing and matching is possible, and more often than not tRDRDSCL will be the one that needs to be run 1 or even 2 values higher. Values above 5 greatly hurt bandwidth and so their use is not advised.
-     
-    * If you're on Intel, tune the tertiaries one group at a time.  
-      My suggestions:
+    * Si vous êtes sur Intel, reglez les tertiaires un groupe à la fois.
+      Mes suggestions:
       
-      | Timing | Safe | Tight | Extreme |
+      | Timing | Safe | Serré | Extreme |
       | ------ | ---- | ----- | ------- |
       | tRDRD_sg/dg/dr/dd | 8/4/8/8 | 7/4/7/7 | 6/4/6/6 |
       | tWRWR_sg/dg/dr/dd | 8/4/8/8 | 7/4/7/7 | 6/4/6/6 |
-      * For tWRRD_sg/dg, see step 3. For tWRRD_dr/dd, drop them both by 1 until you get instability or performance degrades.
-      * For tRDWR_sg/dg/dr/dd, drop them all by 1 until you get instability or performance degrades. You can usually run them all the same e.g. 9/9/9/9.
-        * Setting these too tight can cause system freezes.
-      * Note that dr only affects dual rank sticks, so if you have single rank sticks you can ignore this timing. In the same way, dd only needs to be considered when you run two DIMMs per channel. You can also set them to 0 or 1 if you really wanted to.  
-        [These](https://i.imgur.com/61ZtPpR.jpg) are my timings on B-die, for reference.
-      * For dual rank setups (see [notes on ranks](#a-note-on-ranks-and-density)):
-         * tRDRD_dr/dd can be lowered a step further to 5 for a large bump in read bandwidth.
-         * tWRWR_sg 6 can cause write bandwidth regression over tWRWR_sg 7, despite being stable.
+      * Pour tWRRD_SG/DG, voir l'étape 3. Pour tWRRD_DR/DD, réduisez-les de 1 jusqu'à être instable ou que vous observez une dégradation des performances.
+      * Pour tRDWR_SG/DG/DR/DD, reduisez-les de 1 jusqu'à être instable ou que vous observez une dégradation des performances. Vous pouvez généralement les mettre à la même valeur ex: 9/9/9/9
+        * Trop réduire ces timings peut causer des blocages/freezes du PC.
+      * Notez que DR n'affecte que les barrettes double rang, donc si ce n'est pas votre cas, vous pouvez ignorer ce timing. De la même manière, DD n'est pris en compte que lorsque vous avez 2 barrettes par canal mémoire. Vous pouvez les mettre à 0 ou 1 si vous y tenez vraiment.
+        [Mes timings](https://i.imgur.com/61ZtPpR.jpg) sur Samsung 8Gb B-die pour référence.
+      * Pour un système double rangs (voir [notes sur les rangs](#a-note-on-logical-ranks-and-density)):
+         * tRDRD_DR/DD peut être réduit un cran plus bas à 5 pour un gros boost en bande passante de lecture.
+         * tWRWR_SG 6 peut cause une régression de la bande passante d'écriture par rapport à 7, même lorsque stable.
     
-5. Drop tCL by 1 until it's unstable.
-   * On AMD, if GDM is enabled drop tCL by 2.   
+5. Descendre tCL de 1 jusqu'à être instable.
+   * Sur AMD, si GDM est activé, descendre tCL de 2.   
  
-6. On Intel, drop tRCD and tRP by 1 until unstable.  
+6. Sur Intel, descendre tRCD et tRP de 1 jusqu'à être instable.
 
-   On AMD, drop tRCD by 1 until unstable. Repeat with tRP.
-   * Note: More IMC voltage may be necessary to stabilise tighter tRCD.
+   Sur AMD, descendre tRCD de 1 jusqu'à être instable. Répéter avec tRP.
+   * Note: Une augmentation de la tension du contrôleur mémoire peut être requise pour stabiliser un tRCD plus serré.
    
-7. Set `tRAS = tRCD(RD) + tRTP`. Increase if unstable.
-   * This is the absolute minimum tRAS can be.  
+7. Mettre `tRAS = tRCD(RD) + tRTP`. Augmentez si instable.
+   * This is the absolute minimum tRAS can be.
+   * Ceci est le minimum absolu pour tRAS
    ![tRAS](https://user-images.githubusercontent.com/16512539/118769121-298a6000-b8c3-11eb-8793-7d90e885ca67.png)
-   Here you can see that tRAS is the time between ACT and PRE commands.
-     * ACT to READ = tRCD
-     * READ to PRE = tRTP
-     * Hence, tRAS = tRCD + tRTP.
+   Ici vous pouvez voir que tRAS est le temps entre les commandes ACR et PRE.
+     * ACT à READ = tRCD
+     * READ à PRE = tRTP
+     * D'où, tRAS = tRCD + tRTP.
 
 
-8. Set `tRC = tRP + tRAS`. Increase if unstable.
-   * tRC is only available on AMD and some Intel UEFIs.
-   * On Intel UEFIs, tRC does seem to be affected by tRP and tRAS, even if it is hidden.
-     * (1) [tRP 19 tRAS 42](https://i.imgur.com/gz1YDcO.png) - fully stable.
-     * (2) [tRP 19 tRAS 36](https://i.imgur.com/lHjbLjC.png) - instant error.
-     * (3) [tRP 25 tRAS 36](https://i.imgur.com/7c46Qes.png) - stable up to 500%.
-     * In (1) and (3), tRC is 61 and isn't completely unstable. However, in (2) tRC is 55 and RAMTest finds an error instantly. This indicates that my RAM can do low tRAS, but not low tRC. Since tRC is hidden, I need higher tRAS to get higher tRC to ensure stability.
+8. Mettre `tRC = tRP + tRAS`. Augmentez si instable.
+   * tRC n'est disponible que sur AMD et certains BIOS Intel.
+   * Sur les BIOS Intel, tRC semble être affecté par tRP et tRAS même si il est caché.
+     * (1) [tRP 19 tRAS 42](https://i.imgur.com/gz1YDcO.png) - complètement stable.
+     * (2) [tRP 19 tRAS 36](https://i.imgur.com/lHjbLjC.png) - erreur instantanée.
+     * (3) [tRP 25 tRAS 36](https://i.imgur.com/7c46Qes.png) - stable jusqu'à 500%.
+     * En (1) et (3), tRC vaut 61 et n'est pas complètement instable. En revanche, en (2) tRC vaut 55 et RAMTest trouve une erreur instantanément. Cela indique que ma RAM peut tenir un tRAS serré mais pas tRC. Etant donné que tRC est caché je dois augmenter tRAS pour augmenter tRC et assurer la stabilité.
 
-9. Increase tREFI until it's unstable. The binary search method explained in finding the lowest tRFC can also be applied here.  
-   Otherwise, here are my suggestions:
-   | Timing | Safe | Tight | Extreme |
+9. Augmentez tREFI jusqu'à être instable. La méthode de recherche dichotomique expliquée pour trouver votre tRFC minimum peut aussi être appliquée ici.
+   Autrement, voici mes suggestions:
+   | Timing | Safe | Serré | Extreme |
    | ------ | ---- | ----- | ------- |
    | tREFI | 32768 | 40000 | Max (65535 or 65534) |
-   * It's typically not a good idea to increase tREFI too much as ambient temperature changes (e.g. winter to summer) can be enough to cause instability.
-   * Keep in mind that running max tREFI can corrupt files so tread with caution.
+   * Il n'est généralement pas une bonne idée de trop augmenter tREFI car les changements de température (ex: hiver/été) peuvent suffir à le rendre instable.
+   * Gardez en tête que maxer tREFI peut corrompre des fichiers donc manipuler avec prudence.
 
-10. Finally onto command rate.
+10. Et enfin, le Command Rate.
 
     AMD:
     * Getting GDM disabled and CR 1 stable can be pretty difficult but if you've come this far down the rabbit hole it's worth a shot.
